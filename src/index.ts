@@ -3,43 +3,77 @@ interface Gomon {
     sequence: Array<number | [ number, number ]>;
 }
 
-export const gomon = (numbers: Array<number>): Gomon => {
-    const sorted = numbers.slice().sort((a, b) => a - b);
+const gomonLeft = (numbers: Array<number>): Gomon => {
     const acc: Gomon = {
         sum: 0,
         sequence: []
     };
+
     let i = 1;
 
     while (true) {
-        const prev = sorted[ i - 1 ];
-        const current = sorted[ i ];
+        const prev = numbers[ i - 1 ];
+        const current = numbers[ i ];
 
-        if (prev === undefined) {  // i - 1 is out of range - quit
+        if (prev === undefined || prev > 1) {
             return acc;
         }
 
-        if (current === undefined) {  // i is out of range - quit
+        if (current === undefined || current > 1) {
             acc.sum += prev;
             acc.sequence.push(prev);
 
             return acc;
         }
 
-        if (prev <= 1 && current >= 1) {  // never make pairs between
-            acc.sum += prev;              // (-Infinity, 1] and [1, +Infinity]
-            acc.sequence.push(prev);      // prev is adding as single
-            i += 1;                       // then current'll become prev
-
-        } else if (current === 1) {            // 1 must always be added as single
+        if (current === 1) {
             acc.sum += (prev + current);
-            acc.sequence.push(prev, current);  // prev is adding as single as well
-            i += 2;                            // and then jump to the next pair
-
+            acc.sequence.push(prev, current);
         } else {
             acc.sum += (prev * current);
-            acc.sequence.push([ prev, current ]);  // in other cases make a pair
-            i += 2;                                // and jump to the next pair
+            acc.sequence.push([ prev, current ]);
         }
+
+        i += 2;
     }
+};
+
+const gomonRight = (numbers: Array<number>): Gomon => {
+    const acc: Gomon = {
+        sum: 0,
+        sequence: []
+    };
+
+    let i = numbers.length - 1;
+
+    while (true) {
+        const prev = numbers[ i - 1 ];
+        const current = numbers[ i ];
+
+        if (current === undefined || current <= 1) {
+            return acc;
+        }
+
+        if (prev === undefined || prev <= 1) {
+            acc.sum += current;
+            acc.sequence.unshift(current);
+
+            return acc;
+        }
+
+        acc.sum += (prev * current);
+        acc.sequence.unshift([ prev, current ]);
+        i -= 2;
+    }
+};
+
+export const gomon = (numbers: Array<number>): Gomon => {
+    const sorted = numbers.slice().sort((a, b) => a - b);
+    const left = gomonLeft(sorted);
+    const right = gomonRight(sorted);
+
+    return {
+        sum: left.sum + right.sum,
+        sequence: [ ...left.sequence, ...right.sequence ]
+    };
 };

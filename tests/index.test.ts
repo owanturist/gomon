@@ -76,9 +76,19 @@ test('#4 Sequences', t => {
         sequence: [ 0, 1, [ 2, 3 ], [ 4, 5 ]]
     });
 
+    t.deepEqual(gomon([ 0, 1, 2, 3, 4, 5, 6 ]), {
+        sum: 45,
+        sequence: [ 0, 1, 2, [ 3, 4 ], [ 5, 6 ]]
+    });
+
     t.deepEqual(gomon([ -5, -4, -3, -2, -1, 0 ]), {
         sum: 26,
         sequence: [[ -5, -4, ], [ -3, -2 ], [ -1, 0 ]]
+    });
+
+    t.deepEqual(gomon([ -6, -5, -4, -3, -2, -1, 0 ]), {
+        sum: 44,
+        sequence: [[ -6, -5 ], [ -4, -3 ], [ -2, -1 ], 0 ]
     });
 
     t.deepEqual(gomon([ -5, -4, -3, -2, -1, 1, 2, 3, 4, 5 ]), {
@@ -202,8 +212,8 @@ test('#8 transition between negative and 1 thru 0', t => {
 });
 
 test('#9 Big intervals', t => {
-    t.deepEqual(gomon([ -100, -30, 0, 50, 200 ]), {
-        sum: 13000,
-        sequence: [[ -100, -30 ], 0, [ 50, 200 ]]
+    t.deepEqual(gomon([ -100, -30, 0, 50, 200, 1000 ]), {
+        sum: 203050,
+        sequence: [[ -100, -30 ], 0, 50, [ 200, 1000 ]]
     });
 });
