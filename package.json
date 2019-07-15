@@ -1,0 +1,37 @@
+{
+  "name": "gomon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "ava": "^2.2.0",
+    "tslint": "^5.18.0",
+    "typescript": "^3.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "prebuild": "npm run clean",
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && ava --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owanturist/gomon.git"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": {
+    "email": "owanturist@gmail.com",
+    "name": "Anton Ovechkin"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/owanturist/gomon/issues"
+  },
+  "homepage": "https://github.com/owanturist/gomon#readme"
+}

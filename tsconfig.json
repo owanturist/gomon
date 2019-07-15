@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+
+    /* Basic Options */
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declaration": false,
+    "removeComments": true,
+    "importHelpers": true,
+    "downlevelIteration": true,
+    "outDir": "dist",
+    "baseUrl": "./src/",
+
+    /* Strict Type-Checking Options */
+    "strict": true, // noImplicitAny noImplicitThis alwaysStrict strictNullChecks strictFunctionTypes strictPropertyInitialization
+    "strictFunctionTypes": false, // otherwise brokes .pipe
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Source Map Options */
+    "sourceMap": false,
+    "inlineSourceMap": false,
+    "inlineSources": false,
+
+    "preserveConstEnums": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./tests/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "typings/main",
+    "typings/main.d.ts"
+  ]
+}
