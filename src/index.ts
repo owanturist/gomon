@@ -1,41 +1,25 @@
 export const gomon = (numbers: Array<number>): number => {
-    const n = numbers.length;
-
-    if (n === 0) {
-        return 0;
-    }
-
-    if (n === 1) {
-        return numbers[ 0 ];
-    }
-
     const sorted = numbers.slice().sort((a, b) => a - b);
     let acc = 0;
+    let i = 1;
 
-    for (let i = 1; i < n; i++) {
-        const prev = sorted[ i - 1];
+    while (true) {
+        const prev = sorted[ i - 1 ] || 0;
         const current = sorted[ i ];
-        let increment = 0;
 
-        if (current <= 0) {
-            acc += (prev * current);
-            increment = 1;
+        if (current === undefined) {
+            return acc + prev;
+        }
+
+        if (prev <= 1 && current > 1) {
+            acc += prev;
+            i += 1;
         } else if (current === 1) {
             acc += (prev + current);
-            increment = 1;
-        } else if (prev <= 0 || prev === 1) {
-            acc += prev;
+            i += 2;
         } else {
             acc += (prev * current);
-            increment = 1;
-        }
-
-        i += increment;
-
-        if (increment > 0 && i === n - 1) {
-            acc += sorted[ i ];
+            i += 2;
         }
     }
-
-    return acc;
 };
